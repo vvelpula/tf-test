@@ -246,6 +246,8 @@ class PodFixture(fixtures.Fixture):
 
     @retry(delay=1, tries=10)
     def verify_pod_in_contrail_api(self):
+        if self.inputs.deployment == 'vcsrx':
+            return True
         try:
             self.api_vm_obj = self.vnc_lib.virtual_machine_read(id=self.uuid,
                 fields = ['virtual_machine_interface_back_refs'])
